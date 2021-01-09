@@ -14,10 +14,30 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $value
+     * @return void
+     */
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getUrlAttribute()
+    {
+        return route("questions.show", $this->id);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }
